@@ -6,9 +6,10 @@ our $VERSION = '0.01';
 use Mojolicious::Sessions::Alternative;
 
 sub register {
-    my ( $self, $app, $store ) = @_;
+    my ( $self, $app, $args ) = @_;
+    $args = { session_store => $args } unless ( ref $args eq 'HASH' );
     my $sessions
-        = Mojolicious::Sessions::Alternative->new( session_store => $store );
+        = Mojolicious::Sessions::Alternative->new(%$args);
     $app->sessions($sessions);
 }
 
@@ -32,11 +33,13 @@ Mojolicious::Plugin::SessionStore - session data store plugin for Mojolicious
 
 Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates L<Mojolicious::Sessions::Alternative> instance with provided session data store instance.
 
-=head1 ARGUMENT
+=head1 OPTIONS
 
-Mojolicious::Plugin::SessionStore accepts a single argument.
-This is expected to be an instance of L<Plack::Session::Store> or an object that implements the same interface.
-If no option is provided the default L<Mojolicious::Sessions> will be used.
+Mojolicious::Plugin::SessionStore accepts all options of L<Mojolicious::Sessions::Alternative>.
+
+If a single option is provided, which is expected to be an option of L<Mojolicious::Sessions::Alternative>@session_store.
+
+If no option is provided the default <Mojolicious::Session> will be used.
 
 =head1 METHODS
 

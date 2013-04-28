@@ -13,11 +13,13 @@ Mojolicious::Plugin::SessionStore - session data store plugin for Mojolicious
 
 Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative) instance with provided session data store instance.
 
-# ARGUMENT
+# OPTIONS
 
-Mojolicious::Plugin::SessionStore accepts a single argument.
-That. is expected to be an instance on [Plack::Session::Store](http://search.cpan.org/perldoc?Plack::Session::Store) or an object that implements the same interface.
-If no option is provided the default [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions) will be used.
+Mojolicious::Plugin::SessionStore accepts all options of [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative).
+
+If a single option is provided, which is expected to be an option of [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative)@session\_store.
+
+If no option is provided the default <Mojolicious::Session> will be used.
 
 # METHODS
 
@@ -38,4 +40,4 @@ it under the same terms as Perl itself.
 
 # SEE ALSO
 
-[Mojolicious](http://search.cpan.org/perldoc?Mojolicious), [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions), [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative)
+[Mojolicious](http://search.cpan.org/perldoc?Mojolicious), [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions), [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative), [Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session)
