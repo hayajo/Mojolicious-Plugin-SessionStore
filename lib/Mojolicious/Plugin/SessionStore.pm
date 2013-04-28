@@ -35,7 +35,7 @@ Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious
 =head1 ARGUMENT
 
 Mojolicious::Plugin::SessionStore accepts a single argument.
-That. is expected to be an instance on L<Plack::Session::Store> or an object that implements the same interface.
+This is expected to be an instance of L<Plack::Session::Store> or an object that implements the same interface.
 If no option is provided the default L<Mojolicious::Sessions> will be used.
 
 =head1 METHODS
@@ -57,6 +57,6 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Sessions::Alternative>
+L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Sessions::Alternative>, L<Plack::Middleware::Session>
 
 =cut

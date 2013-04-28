@@ -166,16 +166,20 @@ Mojolicious::Sessions::Alternative is a session manager for L<Mojolicious>.
 
 =head1 OPTIONS
 
-Mojolicious::Sessions::Alternative ihnerits all options from L<Mojolicious::Sessions> and supports the following new ones.
+Mojolicious::Sessions::Alternative inherits all options from L<Mojolicious::Sessions> and supports the following new ones.
 
 =head2 session_store
 
-This is expected to be an instance on L<Plack::Session::Store> or an object that implements the same interface.
+This is expected to be an instance of L<Plack::Session::Store> or an object that implements the same interface.
 If no option is provided the default L<Mojolicious::Sessions> will be used.
+
+=head2 sid_generator
+
+This is a CODE ref use to generate unique session ids. by default it will generate a SHA1 using fairly sufficient entropy.
 
 =head METHODS
 
-Mojolicious::Sessions::Alternative ihnerits all methods from L<Mojolicious::Sessions>.
+Mojolicious::Sessions::Alternative inherits all methods from L<Mojolicious::Sessions>.
 
 =head1 AUTHOR
 
@@ -192,6 +196,6 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Plugin::SessionStore>
+L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Plugin::SessionStore>, L<Plack::Middleware::Session>
 
 =cut
