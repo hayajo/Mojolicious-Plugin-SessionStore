@@ -1,0 +1,6 @@
+/Mojolicious-Plugin-SessionStore-*
+/.build
+/_build*
+/Build
+MYMETA.*
+!META.json
