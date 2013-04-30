@@ -36,6 +36,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Digest::SHA1" : "0",
             "Mojolicious" : "0",
             "perl" : "5.008005"
          }
