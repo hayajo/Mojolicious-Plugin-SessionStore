@@ -2,10 +2,15 @@ use strict;
 use Test::More;
 
 use Mojolicious::Lite;
-use Plack::Session::Store;
+use Plack::Session::Store::File;
+use File::Temp;
+use File::Spec;
 use Test::Mojo;
 
-plugin SessionStore => Plack::Session::Store->new;
+my $sess_dir = File::Temp::tempdir( CLEANUP => 1 );
+
+my $store = Plack::Session::Store::File->new( dir => $sess_dir );
+plugin SessionStore => $store;
 
 get '/' => sub {
     my $self = shift;
@@ -47,11 +52,17 @@ $t->ua->max_redirects(5);
 $t->reset_session->get_ok('/login')->status_is(200)->content_is('Welcome anonymous!');
 ok $t->tx->res->cookie('mojolicious')->expires, 'session cookie expires';
 my $prev_cookie_value = $t->tx->res->cookie('mojolicious')->value;
+my ($prev_session_key) = split /--/, $prev_cookie_value, 2;
+ok (-e File::Spec->catfile($sess_dir, $prev_session_key));
 
 # Login again
 $t->get_ok('/login?name=sri')->status_is(200)->content_is('Welcome sri!');
 my $cookie_value = $t->tx->res->cookie('mojolicious')->value;
 isnt $cookie_value, $prev_cookie_value;
+my ($session_key) = split /--/, $cookie_value, 2;
+ok !(-e File::Spec->catfile($sess_dir, $prev_session_key));
+ok (-e File::Spec->catfile($sess_dir, $session_key));
+is $store->fetch($session_key)->{name}, 'sri';
 
 # Index
 $t->get_ok('/')->status_is(200)->content_is('Welcome sri!');
@@ -65,6 +76,7 @@ $t->get_ok('/')->status_is(200)->content_is('Welcome sri!');
 $t->get_ok('/logout')->status_is(200)->content_is('Welcome anonymous!');
 my $new_cookie_value = $t->tx->res->cookie('mojolicious')->value;
 isnt $new_cookie_value, $cookie_value;
+ok !(-e File::Spec->catfile($sess_dir, $session_key));
 
 # Expired session
 $t->get_ok('/')->status_is(200)->content_is('Welcome anonymous!');
