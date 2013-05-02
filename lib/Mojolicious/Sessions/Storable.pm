@@ -37,18 +37,19 @@ sub load {
 
     my ( $session_id, $session ) = $self->get_session($c);
 
-    if ( $session_id && $session ) {
-        $session->{flash} = delete $session->{new_flash}
-            if $session->{new_flash};
-    }
-    else {
+    unless ( $session_id && $session ) {
         $session_id = $self->generate_id( $c->req->env );
         $session    = {};
     }
 
     my $stash = $c->stash;
     $stash->{'mojox.session.options'} = { id => $session_id };
+
+    return unless $stash->{'mojo.active_session'} = keys %$session;
+
     $stash->{'mojo.session'} = $session;
+    $session->{flash} = delete $session->{new_flash}
+        if $session->{new_flash};
 }
 
 sub store {
@@ -57,7 +58,12 @@ sub store {
     return $self->SUPER::store($c) unless ( $self->session_store );
 
     my $stash = $c->stash;
-    my $session = $stash->{'mojo.session'};
+    my $session = $stash->{'mojo.session'} || {};
+
+    unless ( keys %$session || $stash->{'mojo.active_session'} ) {
+        $self->session_store->remove( $c->session_options->{id} );
+        return;
+    }
 
     # Don't reset flash for static files
     my $old = delete $session->{flash};
