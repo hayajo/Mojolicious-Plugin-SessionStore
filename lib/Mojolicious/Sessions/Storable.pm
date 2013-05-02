@@ -35,28 +35,20 @@ sub load {
 
     return $self->SUPER::load($c) unless ( $self->session_store );
 
-    my $session_id = $c->signed_cookie($self->cookie_name);
-    my $session    = $self->get_session($session_id);
+    my ( $session_id, $session ) = $self->get_session($c);
 
-    if ( !( $session_id && $session ) ) {
+    if ( $session_id && $session ) {
+        $session->{flash} = delete $session->{new_flash}
+            if $session->{new_flash};
+    }
+    else {
         $session_id = $self->generate_id( $c->req->env );
         $session    = {};
     }
 
     my $stash = $c->stash;
     $stash->{'mojox.session.options'} = { id => $session_id };
-
-    my $expiration = $session->{expiration} // $self->default_expiration;
-    return if !(my $expires = delete $session->{expires}) && $expiration;
-    if ( defined $expires && $expires <= time ) {
-        $self->session_store->remove($session_id);
-        return;
-    };
-
-    return unless $stash->{'mojo.active_session'} = keys %$session;
-
     $stash->{'mojo.session'} = $session;
-    $session->{flash} = delete $session->{new_flash} if $session->{new_flash};
 }
 
 sub store {
@@ -64,18 +56,8 @@ sub store {
 
     return $self->SUPER::store($c) unless ( $self->session_store );
 
-    my $stash     = $c->stash;
-    my $sess_opts = $c->session_options;
-
-    my $session;
-    if ( !( $session = $stash->{'mojo.session'} ) ) {
-        $self->session_store->remove( $c->session_options->{id} );
-        return;
-    }
-    if ( ! keys %$session && ! $stash->{'mojo.active_session'} ) {
-        $self->session_store->remove( $c->session_options->{id} );
-        return;
-    }
+    my $stash = $c->stash;
+    my $session = $stash->{'mojo.session'};
 
     # Don't reset flash for static files
     my $old = delete $session->{flash};
@@ -87,22 +69,9 @@ sub store {
     my $expiration = $session->{expiration} // $self->default_expiration;
     my $default = delete $session->{expires};
     $session->{expires} = $default || time + $expiration
-        if $expiration || $default;
+        if ( $expiration || $default );
 
-    $self->set_session($c, $session);
-
-    my $options = {
-        domain   => $self->cookie_domain,
-        expires  => $session->{expires},
-        httponly => 1,
-        path     => $self->cookie_path,
-        secure   => $self->secure
-    };
-    $c->signed_cookie(
-        $self->cookie_name,
-        $c->session_options->{id},
-        $options,
-    );
+    $self->set_session( $c, $session );
 }
 
 sub generate_id {
@@ -111,14 +80,22 @@ sub generate_id {
 }
 
 sub get_session {
-    my ( $self, $session_id ) = @_;
-    return unless $session_id;
-    my $session = $self->session_store->fetch($session_id);
+    my ( $self, $c ) = @_;
+
+    my $session_id = $c->signed_cookie( $self->cookie_name ) or return;
+    my $session    = $self->session_store->fetch($session_id) or return;
+
+    my $expires = delete $session->{expires};
+    if ( defined $expires && $expires <= time ) {
+        $self->session_store->remove($session_id);
+        return;
+    };
+
     return ( $session_id, $session );
 }
 
 sub set_session {
-    my ($self, $c, $session) = @_;
+    my ( $self, $c, $session ) = @_;
 
     if ( $c->session_options->{expire} || $session->{expires} <= time ) {
         $session->{expires} = 1;
@@ -132,6 +109,19 @@ sub set_session {
     else {
         $self->session_store->store( $c->session_options->{id}, $session );
     }
+
+    my $options = {
+        domain   => $self->cookie_domain,
+        expires  => $session->{expires},
+        httponly => 1,
+        path     => $self->cookie_path,
+        secure   => $self->secure
+    };
+    $c->signed_cookie(
+        $self->cookie_name,
+        $c->session_options->{id},
+        $options,
+    );
 }
 
 1;
