@@ -11,13 +11,13 @@ Mojolicious::Plugin::SessionStore - session data store plugin for Mojolicious
 
 # DESCRIPTION
 
-Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative) instance with provided session data store instance.
+Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable) instance with provided session data store instance.
 
 # OPTIONS
 
-Mojolicious::Plugin::SessionStore accepts all options of [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative).
+Mojolicious::Plugin::SessionStore accepts all options of [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable).
 
-If a single option is provided, which is expected to be an option of [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative)@session\_store.
+If a single option is provided, which is expected to be an option of [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable)@session\_store.
 
 If no option is provided the default <Mojolicious::Session> will be used.
 
@@ -40,4 +40,4 @@ it under the same terms as Perl itself.
 
 # SEE ALSO
 
-[Mojolicious](http://search.cpan.org/perldoc?Mojolicious), [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions), [Mojolicious::Sessions::Alternative](http://search.cpan.org/perldoc?Mojolicious::Sessions::Alternative), [Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session)
+[Mojolicious](http://search.cpan.org/perldoc?Mojolicious), [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions), [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable), [Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session)

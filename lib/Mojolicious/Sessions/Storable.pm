@@ -1,4 +1,4 @@
-package Mojolicious::Sessions::Alternative;
+package Mojolicious::Sessions::Storable;
 
 use strict;
 use warnings;
@@ -52,7 +52,6 @@ sub load {
         $self->session_store->remove($session_id);
         return;
     };
-
     if ( defined $expires && $expires <= time ) {
         $self->session_store->remove($session_id);
         return;
@@ -145,16 +144,16 @@ __END__
 
 =head1 NAME
 
-Mojolicious::Sessions::Alternative - Alternative Mojolicious::Sessions
+Mojolicious::Sessions::Storable - Storable session manager for Mojolicious
 
 =head1 SYNOPSIS
 
   use Mojolicious::Lite;
-  use MojoX::Sessions::Alternative;
+  use Mojolicious::Sessions::Storable;
 
   use Plack::Session::Store::File;
 
-  my $sessions = MojoX::Sessions::Alternative->new(
+  my $sessions = Mojolicious::Sessions::Storable->new(
       session_store => Plack::Session::Store::File->new
   );
 
@@ -162,11 +161,11 @@ Mojolicious::Sessions::Alternative - Alternative Mojolicious::Sessions
 
 =head1 DESCRIPTION
 
-Mojolicious::Sessions::Alternative is a session manager for L<Mojolicious>.
+Mojolicious::Sessions::Storable is a storable session manager for L<Mojolicious>.
 
 =head1 OPTIONS
 
-Mojolicious::Sessions::Alternative inherits all options from L<Mojolicious::Sessions> and supports the following new ones.
+Mojolicious::Sessions::Storable inherits all options from L<Mojolicious::Sessions> and supports the following new ones.
 
 =head2 session_store
 
@@ -179,7 +178,7 @@ This is a CODE ref use to generate unique session ids. by default it will genera
 
 =head METHODS
 
-Mojolicious::Sessions::Alternative inherits all methods from L<Mojolicious::Sessions>.
+Mojolicious::Sessions::Storable inherits all methods from L<Mojolicious::Sessions>.
 
 =head1 AUTHOR
 

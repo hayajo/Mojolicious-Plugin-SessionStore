@@ -3,13 +3,13 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 our $VERSION = '0.01';
 
-use Mojolicious::Sessions::Alternative;
+use Mojolicious::Sessions::Storable;
 
 sub register {
     my ( $self, $app, $args ) = @_;
     $args = { session_store => $args } unless ( ref $args eq 'HASH' );
     my $sessions
-        = Mojolicious::Sessions::Alternative->new(%$args);
+        = Mojolicious::Sessions::Storable->new(%$args);
     $app->sessions($sessions);
 }
 
@@ -31,13 +31,13 @@ Mojolicious::Plugin::SessionStore - session data store plugin for Mojolicious
 
 =head1 DESCRIPTION
 
-Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates L<Mojolicious::Sessions::Alternative> instance with provided session data store instance.
+Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates L<Mojolicious::Sessions::Storable> instance with provided session data store instance.
 
 =head1 OPTIONS
 
-Mojolicious::Plugin::SessionStore accepts all options of L<Mojolicious::Sessions::Alternative>.
+Mojolicious::Plugin::SessionStore accepts all options of L<Mojolicious::Sessions::Storable>.
 
-If a single option is provided, which is expected to be an option of L<Mojolicious::Sessions::Alternative>@session_store.
+If a single option is provided, which is expected to be an option of L<Mojolicious::Sessions::Storable>@session_store.
 
 If no option is provided the default <Mojolicious::Session> will be used.
 
@@ -60,6 +60,6 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Sessions::Alternative>, L<Plack::Middleware::Session>
+L<Mojolicious>, L<Mojolicious::Sessions>, L<Mojolicious::Sessions::Storable>, L<Plack::Middleware::Session>
 
 =cut
