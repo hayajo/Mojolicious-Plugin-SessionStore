@@ -121,6 +121,7 @@ sub set_session {
     my ($self, $c, $session) = @_;
 
     if ( $c->session_options->{expire} || $session->{expires} <= time ) {
+        $session->{expires} = 1;
         $self->session_store->remove( $c->session_options->{id} );
     }
     elsif ( $c->session_options->{change_id} ) {
