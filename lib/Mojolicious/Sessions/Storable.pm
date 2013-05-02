@@ -47,11 +47,7 @@ sub load {
     $stash->{'mojox.session.options'} = { id => $session_id };
 
     my $expiration = $session->{expiration} // $self->default_expiration;
-    my $expires;
-    if ( !( $expires = delete $session->{expires} ) && $expiration ) {
-        $self->session_store->remove($session_id);
-        return;
-    };
+    return if !(my $expires = delete $session->{expires}) && $expiration;
     if ( defined $expires && $expires <= time ) {
         $self->session_store->remove($session_id);
         return;
@@ -124,7 +120,7 @@ sub get_session {
 sub set_session {
     my ($self, $c, $session) = @_;
 
-    if ( $c->session_options->{expire} ) {
+    if ( $c->session_options->{expire} || $session->{expires} <= time ) {
         $self->session_store->remove( $c->session_options->{id} );
     }
     elsif ( $c->session_options->{change_id} ) {
