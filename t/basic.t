@@ -76,7 +76,9 @@ $t->get_ok('/')->status_is(200)->content_is('Welcome sri!');
 $t->get_ok('/logout')->status_is(200)->content_is('Welcome anonymous!');
 my $new_cookie_value = $t->tx->res->cookie('mojolicious')->value;
 isnt $new_cookie_value, $cookie_value;
+my ($new_session_key) = split /--/, $new_cookie_value, 2;
 ok !(-e File::Spec->catfile($sess_dir, $session_key));
+ok (-e File::Spec->catfile($sess_dir, $new_session_key));
 
 # Expired session
 $t->get_ok('/')->status_is(200)->content_is('Welcome anonymous!');
