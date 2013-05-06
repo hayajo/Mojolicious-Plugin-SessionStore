@@ -1,4 +1,4 @@
-requires 'perl', '5.008005';
+requires 'perl', '5.010001';
 
 # requires 'Some::Module', 'VERSION';
 requires 'Mojolicious', '0';
