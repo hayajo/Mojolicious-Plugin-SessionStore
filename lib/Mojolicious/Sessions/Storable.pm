@@ -3,6 +3,8 @@ package Mojolicious::Sessions::Storable;
 use strict;
 use warnings;
 
+our $VERSION = '0.01';
+
 use Mojo::Base 'Mojolicious::Sessions';
 use Digest::SHA1 ();
 
