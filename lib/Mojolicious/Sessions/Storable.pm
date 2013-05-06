@@ -165,7 +165,7 @@ If no option is provided the default L<Mojolicious::Sessions> will be used.
 
 This is a CODE ref use to generate unique session ids. by default it will generate a SHA1 using fairly sufficient entropy.
 
-=head METHODS
+=head1 METHODS
 
 Mojolicious::Sessions::Storable inherits all methods from L<Mojolicious::Sessions>.
 
