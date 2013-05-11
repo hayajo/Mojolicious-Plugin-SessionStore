@@ -11,6 +11,7 @@ sub register {
     my $sessions
         = Mojolicious::Sessions::Storable->new(%$args);
     $app->sessions($sessions);
+    return $sessions;
 }
 
 1;
