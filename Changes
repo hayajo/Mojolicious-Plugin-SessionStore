@@ -2,6 +2,9 @@ Revision history for Mojolicious-Plugin-SessionStore
 
 {{$NEXT}}
 
+0.04  2013-05-17 11:55:27 JST
+        - Changed Mojolicious::Controller#render from Mojolicious::Controller#render_text
+
 0.03  2013-05-14 08:36:44 JST
         - Modified to return Mojolicious::Sessions::Storable object at Mojolicious::Plugin::SessionStore#register
 
