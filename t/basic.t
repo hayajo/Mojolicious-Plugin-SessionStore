@@ -20,7 +20,7 @@ get '/' => sub {
         = ($message)
         ? "$name: $message"
         : "Welcome $name!";
-    $self->render_text($text);
+    $self->render( text => $text );
 } => 'index';
 
 get '/login' => sub {
