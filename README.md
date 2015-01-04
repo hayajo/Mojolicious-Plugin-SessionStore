@@ -11,19 +11,19 @@ Mojolicious::Plugin::SessionStore - session data store plugin for Mojolicious
 
 # DESCRIPTION
 
-Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable) instance with provided session data store instance.
+Mojolicious::Plugin::SessionStore is a session data store plugin for Mojolicious. It creates [Mojolicious::Sessions::Storable](https://metacpan.org/pod/Mojolicious::Sessions::Storable) instance with provided session data store instance.
 
 # OPTIONS
 
-Mojolicious::Plugin::SessionStore accepts all options of [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable).
+Mojolicious::Plugin::SessionStore accepts all options of [Mojolicious::Sessions::Storable](https://metacpan.org/pod/Mojolicious::Sessions::Storable).
 
-If a single option is provided, which is expected to be an option of [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable)@session\_store.
+If a single option is provided, which is expected to be an option of [Mojolicious::Sessions::Storable](https://metacpan.org/pod/Mojolicious::Sessions::Storable)@session\_store.
 
 If no option is provided the default <Mojolicious::Session> will be used.
 
 # METHODS
 
-Mojolicious::Plugin::SessionStore inherits all methods from [Mojolicious::Plugin](http://search.cpan.org/perldoc?Mojolicious::Plugin).
+Mojolicious::Plugin::SessionStore inherits all methods from [Mojolicious::Plugin](https://metacpan.org/pod/Mojolicious::Plugin).
 
 # AUTHOR
 
@@ -40,4 +40,4 @@ it under the same terms as Perl itself.
 
 # SEE ALSO
 
-[Mojolicious](http://search.cpan.org/perldoc?Mojolicious), [Mojolicious::Sessions](http://search.cpan.org/perldoc?Mojolicious::Sessions), [Mojolicious::Sessions::Storable](http://search.cpan.org/perldoc?Mojolicious::Sessions::Storable), [Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session)
+[Mojolicious](https://metacpan.org/pod/Mojolicious), [Mojolicious::Sessions](https://metacpan.org/pod/Mojolicious::Sessions), [Mojolicious::Sessions::Storable](https://metacpan.org/pod/Mojolicious::Sessions::Storable), [Plack::Middleware::Session](https://metacpan.org/pod/Plack::Middleware::Session)
