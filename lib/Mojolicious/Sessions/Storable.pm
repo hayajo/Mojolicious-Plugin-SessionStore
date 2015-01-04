@@ -25,7 +25,7 @@ sub new {
     {
         Mojolicious::Controller->attr(
             session_options => sub {
-                $_[0]->stash->{'mojox.session.options'}
+                $_[0]->stash->{'mojox.session.options'} ||= {};
             },
         );
     }
