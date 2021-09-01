@@ -1,6 +1,7 @@
 Revision history for Mojolicious-Plugin-SessionStore
 
 {{$NEXT}}
+	- Add support for SameSite cookie parameter, requires Mojolicious 8.11 or newer, GH#1
 
 0.05 2015-01-04T10:09:22Z
         - Fixed a bug

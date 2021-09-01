@@ -1,7 +1,7 @@
 requires 'perl', '5.010001';
 
 # requires 'Some::Module', 'VERSION';
-requires 'Mojolicious', '0';
+requires 'Mojolicious', '8.11';
 requires 'Digest::SHA1', '0';
 
 on test => sub {

@@ -86,7 +86,8 @@ sub store {
         expires  => $session->{expires},
         httponly => 1,
         path     => $self->cookie_path,
-        secure   => $self->secure
+        secure   => $self->secure,
+        samesite => $self->samesite,
     };
     $c->signed_cookie(
         $self->cookie_name,
